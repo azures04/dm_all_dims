@@ -1,5 +1,4 @@
 # DM: All Dimensions Addon
-## /!\ Server side ony!!!
 Dalek Mod addon that adds in all dimensions to the dimensional selector via code.
 <br>
 *This is a port to DalekMod 1.12.2 (Update 64)*
