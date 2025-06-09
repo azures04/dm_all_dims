@@ -5,6 +5,7 @@ Dalek Mod addon that adds in all dimensions to the dimensional selector via code
 *This is a port to DalekMod 1.12.2 (Update 64)*
 
 ## Roadmap
+- Unregister blocked dimensions in config
 - Config to lock dimensions until they are discovered by the player
 
 ## Contributing
