@@ -2,14 +2,13 @@
 	"modid": "dm_all_dims",
 	"name": "DM: All Dimensions",
 	"description": "A mod that adds in every dimension to the dimensional selector, including modded!",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"mcversion": "1.12.2",
 	"url": "https://swdteam.com/p/dalek-mod",
 	"updateUrl": "",
 	"authorList": ["Azures04"],
 	"credits": "Bug1312",
 	"logoFile": "logo.png",
-	"serverSideOnly": true,
 	"screenshots": [],
 	"dependencies": []
 }]

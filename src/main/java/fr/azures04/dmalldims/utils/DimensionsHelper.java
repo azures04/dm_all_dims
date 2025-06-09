@@ -1,6 +1,7 @@
 package fr.azures04.dmalldims.utils;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.swdteam.client.gui.elements.PlanetRenders;
 import com.swdteam.common.init.DMDimensions;
@@ -14,12 +15,7 @@ public class DimensionsHelper {
 	
 	public static void registerAllDimensions() {
 		int[] DISABLED_DIMENSIONS = DMConfig.serverSide.DISABLED_DIMENSIONS;
-		HashMap<Integer, String> planets = new HashMap<Integer, String>();
-		System.out.println("[DM All Dims] Listing all dimensions.");
-	    for (DimensionType dim : DimensionManager.getRegisteredDimensions().keySet()) {
-	    	planets.put(dim.getId(), dim.getName());
-	    }
-		System.out.println("[DM All Dims] Removing blocked dimensions.");
+		HashMap<Integer, String> planets = getAllDimensions();
 	    for (int i = 0; i < DISABLED_DIMENSIONS.length; i++) {
 			int dimensionId = DISABLED_DIMENSIONS[i];
 			if (planets.containsKey(dimensionId)) {
@@ -27,11 +23,10 @@ public class DimensionsHelper {
 			}
 		}
 
-		System.out.println("[DM All Dims] Registering dimensions.");
 		for (Integer dimensionId : planets.keySet()) {
 			String dimensionName = planets.get(dimensionId);
 	    	IPlanet planet = DMDimensions.getPlanetForDimension(dimensionId);
-	    	if (planet.getPlanetName() == "Overworld" && dimensionId != 0) {
+	    	if (planet.getPlanetName().equals("Overworld") && dimensionId != 0) {
 	    		DMDimensions.addPlanet(dimensionId, new IPlanet() {
 					@Override
 					public String getPlanetName() {
@@ -45,8 +40,42 @@ public class DimensionsHelper {
 	    		});
 			}
 		}
-		
-		System.out.println("[DM All Dims] All dimensions has been registered.");
+	}
+	
+	public static void registerAllDimensions(Map<Integer, String> planets) {
+		int[] DISABLED_DIMENSIONS = DMConfig.serverSide.DISABLED_DIMENSIONS;
+	    for (int i = 0; i < DISABLED_DIMENSIONS.length; i++) {
+			int dimensionId = DISABLED_DIMENSIONS[i];
+			if (planets.containsKey(dimensionId)) {
+				planets.remove(dimensionId);
+			}
+		}
+
+		for (Integer dimensionId : planets.keySet()) {
+			String dimensionName = planets.get(dimensionId);
+	    	IPlanet planet = DMDimensions.getPlanetForDimension(dimensionId);
+	    	if (planet.getPlanetName().equals("Overworld") && dimensionId != 0) {
+	    		DMDimensions.addPlanet(dimensionId, new IPlanet() {
+					@Override
+					public String getPlanetName() {
+						return dimensionName;
+					}
+
+					@Override
+					public ResourceLocation getPlanetRenderer() {
+						return PlanetRenders.TEMPLATE;
+					}
+	    		});
+			}
+		}
+	}
+	
+	public static HashMap<Integer, String> getAllDimensions() {
+		HashMap<Integer, String> planets = new HashMap<Integer, String>();
+	    for (DimensionType dim : DimensionManager.getRegisteredDimensions().keySet()) {
+	    	planets.put(dim.getId(), dim.getName());
+	    }
+	    return planets;
 	}
 	
 }
